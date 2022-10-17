@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controller.reader.FXReaderCreateController">
+
+    <children>
+        <TextField fx:id="tfName" layoutX="208.0" layoutY="131.0" />
+        <Button defaultButton="true" layoutX="222.0" layoutY="258.0" mnemonicParsing="false" onAction="#addReader" prefHeight="49.0" prefWidth="122.0" text="Save new reader" />
+        <Label layoutX="212.0" layoutY="113.0" text="Name" />
+        <Label layoutX="29.0" layoutY="38.0" text="ADD A NEW READER" textFill="#000000bb">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <DatePicker fx:id="dpBirthDate" layoutX="204.0" layoutY="196.0" prefHeight="25.0" prefWidth="167.0" />
+      <Label layoutX="212.0" layoutY="178.0" text="Birth date" />
+
+    </children>
+
+
+</AnchorPane>

@@ -1,0 +1,6 @@
+1;economics
+2;sports
+3;science
+1;news_1;2007-08-13
+1;art_one;1;1
+3;art_three;2;1
