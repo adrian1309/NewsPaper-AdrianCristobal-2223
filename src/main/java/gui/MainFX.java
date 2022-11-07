@@ -1,5 +1,6 @@
 package gui;
 
+import common.FxmlPaths;
 import fx.controller.FXMainController;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -7,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
+@Log4j2
 
 public class MainFX {
 
@@ -18,7 +21,8 @@ public class MainFX {
 
     public void start(@Observes @StartUpScene Stage stage) throws IOException {
         try {
-            Parent fxmlParent = fxmlLoader.load(getClass().getResourceAsStream("/fxml/FXMain.fxml"));
+            Parent fxmlParent = fxmlLoader.load(
+                    getClass().getResourceAsStream(FxmlPaths.MAIN_BORDERPAIN_SCREEN));
             FXMainController controller = fxmlLoader.getController();
             controller.setStage(stage);
 

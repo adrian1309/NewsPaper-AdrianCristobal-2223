@@ -1,6 +1,7 @@
 package fx.controller.article;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class FXArticleCreateController implements Initializable {
+public class FXArticleCreateController extends BasePantallaController implements Initializable {
     @FXML
     public TextField txtNameArticle;
     @FXML

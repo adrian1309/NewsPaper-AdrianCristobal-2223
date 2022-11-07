@@ -1,11 +1,16 @@
 package model;
 
+import jakarta.enterprise.inject.spi.configurator.BeanConfigurator;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Article {
     private int id;
     private String name_article;
@@ -22,7 +27,7 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Name: " + name_article + " - Type: " + id_type + " - Newspaper: " + id_newspaper;
+        return name_article;
     }
 
     public String toStringFile(){

@@ -25,7 +25,7 @@ public class ConfigYaml {
         if (config == null) {
             try {
                 Yaml yaml = new Yaml();
-                InputStream in = Files.newInputStream(Paths.get("propertiesFiles/users.yml"));
+                InputStream in = Files.newInputStream(Paths.get("propertiesFiles/users.yaml"));
                 // Parse the YAML document in a stream and produce the corresponding Java object.
                 config = yaml.loadAs(in, ConfigYaml.class);
 

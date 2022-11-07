@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="fxRoot" xmlns="http://javafx.com/javafx"
+<BorderPane fx:id="rootPantallaPrincipal" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fx.controller.FXMainController"
             prefHeight="400.0" prefWidth="600.0">
@@ -14,47 +14,65 @@
     <top>
         <MenuBar fx:id="fxMenuTop" BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" text="Options">
+                <Menu mnemonicParsing="false" text="Options" fx:id="menuItemsOptions">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chargeLogin" text="Go back to login" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeWelcome" text="Welcome Pane" />
+                        <MenuItem fx:id="menuBackToLogin" mnemonicParsing="false" onAction="#menuClick" text="Go back to login" />
+                        <MenuItem fx:id="menuWelcome" mnemonicParsing="false" onAction="#menuClick" text="Welcome Pane" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Articles">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chargeAddArticles" text="Add Article" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeReadArticles" text="Read Articles" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeFindTypeArticles" text="Find by Type Article" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeDeleteArticles" text="Delete Article" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeUpdateArticles" text="Update Article" />
+                        <MenuItem fx:id="menuAddArticle" mnemonicParsing="false" onAction="#menuClick" text="Add Article" />
+                        <MenuItem fx:id="menuReadArticle" mnemonicParsing="false" onAction="#menuClick" text="Read Articles" />
+                        <MenuItem fx:id="menuFindByTypeArticle" mnemonicParsing="false" onAction="#menuClick" text="Find by Type Article" />
+                        <MenuItem fx:id="menuDeleteArticle" mnemonicParsing="false" onAction="#menuClick" text="Delete Article" />
+                        <MenuItem fx:id="menuUpdateArticle" mnemonicParsing="false" onAction="#menuClick" text="Update Article" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Newspapers">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chargeAddNewspapers" text="Add Newspaper" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeReadNewspapers" text="Read Newspapers" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeFindByIdNewspapers" text="Find by ID Newspaper" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeDeleteNewspapers" text="Delete Newspaper" />
+                        <MenuItem fx:id="menuAddNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Add Newspaper" />
+                        <MenuItem fx:id="menuReadNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Read Newspapers" />
+                        <MenuItem fx:id="menuFindByIdNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Find by ID Newspaper" />
+                        <MenuItem fx:id="menuDeleteNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Delete Newspaper" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Reader">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chargeAddReaders" text="Add Reader" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeReadReaders" text="Read Readers" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeFindByIdReaders" text="Find by Id Reader" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeDeleteReaders" text="Delete Reader" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeUpdateReaders" text="Update Reader" />
+                        <MenuItem fx:id="menuAddReader" mnemonicParsing="false" onAction="#menuClick" text="Add Reader" />
+                        <MenuItem fx:id="menuReadReader" mnemonicParsing="false" onAction="#menuClick" text="Read Readers" />
+                        <MenuItem fx:id="menuFindByIdReader" mnemonicParsing="false" onAction="#menuClick" text="Find by Id Reader" />
+                        <MenuItem fx:id="menuDeleteReader" mnemonicParsing="false" onAction="#menuClick" text="Delete Reader" />
+                        <MenuItem fx:id="menuUpdateReader" mnemonicParsing="false" onAction="#menuClick" text="Update Reader" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="XML">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#chargeReadersSubscribeByNewspaper" text="Find Readers by Newspaper" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeReaderByArticleByTypeXML" text="Find Readers by Article by Type" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeAddReadArticle" text="Add ReadArticle" />
-                        <MenuItem mnemonicParsing="false" onAction="#chargeDeleteReader" text="Delete Reader" />
+                        <MenuItem fx:id="menuFindReadersByNewspaperXML" mnemonicParsing="false" onAction="#menuClick" text="Find Readers by Newspaper" />
+                        <MenuItem fx:id="menuFindReadersByArticleByTypeXML" mnemonicParsing="false" onAction="#menuClick" text="Find Readers by Article by Type" />
+                        <MenuItem fx:id="menuAddReadArticleXML" mnemonicParsing="false" onAction="#menuClick" text="Add ReadArticle" />
+                        <MenuItem fx:id="menuDeleteReaderXML" mnemonicParsing="false" onAction="#menuClick" text="Delete Reader" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="JDBC" fx:id="menuItemsJDBC">
+                    <items>
+                        <MenuItem fx:id="menuFindReadersSubscribeNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Find Readers subscribe Newspaper" />
+                        <MenuItem fx:id="menuFindReadersArticleType" mnemonicParsing="false" onAction="#menuClick" text="Find Readers of an article type" />
+                        <MenuItem fx:id="menuAddReadArticle" mnemonicParsing="false" onAction="#menuClick" text="Add ReadArticle" />
+                        <MenuItem fx:id="menuGetDescriptionAndNumberReadersOfEachArticle" mnemonicParsing="false" onAction="#menuClick" text="Description and number of readers Article" />
+                        <MenuItem fx:id="menuGetNameOfOldestSubscribersOfNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Name Subscribers of a Newspaper" />
+                        <MenuItem fx:id="menuReaderSubscribeNewspaper" mnemonicParsing="false" onAction="#menuClick" text="Reader subscribe to a Newspaper" />
                     </items>
                 </Menu>
             </menus>
+            <Menu mnemonicParsing="false" text="Spring" fx:id="menuItemsSpring">
+                <items>
+                    <MenuItem fx:id="menuFindNewspapersSpring" mnemonicParsing="false" onAction="#menuClick" text="Find Newspapers" />
+                    <MenuItem fx:id="menuDeleteNewspaperSpring" mnemonicParsing="false" onAction="#menuClick" text="Delete Newspapers" />
+                    <MenuItem fx:id="menuAddNewspaperSpring" mnemonicParsing="false" onAction="#menuClick" text="Add Newspapers" />
+                    <MenuItem fx:id="menuUpdateNewspaperSpring" mnemonicParsing="false" onAction="#menuClick" text="Update Newspapers" />
+                </items>
+            </Menu>
         </MenuBar>
     </top>
 

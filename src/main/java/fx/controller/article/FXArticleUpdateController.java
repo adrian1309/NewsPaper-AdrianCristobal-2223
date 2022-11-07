@@ -1,4 +1,6 @@
 package fx.controller.article;
 
-public class FXArticleUpdateController {
+import fx.controller.common.BasePantallaController;
+
+public class FXArticleUpdateController extends BasePantallaController {
 }

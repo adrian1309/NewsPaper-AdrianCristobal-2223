@@ -1,401 +1,211 @@
 package fx.controller;
 
-import fx.controller.article.FXArticleByTypeController;
-import fx.controller.article.FXArticleCreateController;
-import fx.controller.newspaper.FXNewspaperDeleteController;
-import fx.controller.newspaper.FXNewspaperReadController;
-import fx.controller.reader.FXReaderCreateController;
-import fx.controller.reader.FXReaderDeleteController;
-import fx.controller.reader.FXReaderReadController;
-import fx.controller.reader.FXReaderUpdateController;
-import fx.controller.xml.FXReadArticleAddToReaderXMLController;
-import fx.controller.xml.FXReaderByArticleByTypeXMLController;
-import fx.controller.xml.FXReaderDeleteXMLController;
-import fx.controller.xml.FXReaderSuscribeByNewspaperXMLController;
+import fx.controller.common.BasePantallaController;
+import fx.controller.common.Pantallas;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import lombok.Getter;
-import service.files.ServiceNewspaperFile;
+import lombok.extern.log4j.Log4j2;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@Getter
-public class FXMainController implements Initializable {
+@Log4j2
+public class FXMainController extends BorderPane implements Initializable{
     @FXML
-    private BorderPane fxRoot;
-
-    public void setFxRoot(BorderPane fxRoot) {
-        this.fxRoot = fxRoot;
-    }
-
-    private Stage primaryStage;
-
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
+    private BorderPane rootPantallaPrincipal;
     @FXML
     private MenuBar fxMenuTop;
+    @FXML
+    private Menu menuItemsOptions;
+    @FXML
+    private Menu menuItemsJDBC;
+    @FXML
+    private MenuItem menuBackToLogin;
+    @FXML
+    private MenuItem menuWelcome;
+    @FXML
+    private MenuItem menuAddReadArticle;
+    @FXML
+    private MenuItem menuReaderSubscribeNewspaper;
+    private Stage primaryStage;
 
-    private AnchorPane login;
-    private FXLoginMainController loginMainController;
+    Instance<Object> instance;
 
-    private AnchorPane welcome;
-    private FXWelcomeController welcomeController;
+    private Alert alert;
 
-    private AnchorPane readNewspaper;
-    private FXNewspaperReadController readNewsPaperController;
+    public boolean adminUser;
 
-    private AnchorPane findArticleByType;
-    private FXArticleByTypeController findArticleByTypeController;
-
-    private AnchorPane createArticle;
-    private FXArticleCreateController createArticleController;
-
-    private AnchorPane deleteNewspaper;
-    private FXNewspaperDeleteController deleteNewspaperController;
-
-    private AnchorPane readerSuscribeByNewspaperXML;
-    private FXReaderSuscribeByNewspaperXMLController readerSuscribeByNewspaperXMLController;
-
-    private AnchorPane readerByArticleByTypeXML;
-    private FXReaderByArticleByTypeXMLController readerByArticleByTypeXMLController;
-
-
-    private AnchorPane readArticleAddToReaderXML;
-    private FXReadArticleAddToReaderXMLController readArticleAddToReaderXMLController;
-
-    private AnchorPane readerDeleteXML;
-    private FXReaderDeleteXMLController readerDeleteXMLController;
-
-    private AnchorPane readerCreate;
-    private FXReaderCreateController readerCreateController;
-    private AnchorPane readerRead;
-    private FXReaderReadController readerReadController;
-
-    private AnchorPane readerDelete;
-    private FXReaderDeleteController readerDeleteController;
-
-    private AnchorPane readerUpdate;
-    private FXReaderUpdateController readerUpdateController;
+    public String userName;
+    public String userPassword;
 
 
 
-
-
-
-    public void preloadLogin() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/FXLoginMain.fxml"));
-            login = loaderMenu.load();
-            loginMainController
-                    = loaderMenu.getController();
-
-            loginMainController.setMain(this);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    public FXMainController(){}
+    @Inject
+    public FXMainController(Instance<Object> instance) {
+        this.instance = instance;
+        alert= new Alert(Alert.AlertType.NONE);
     }
-
-    public void preloadWelcome() {
+    /*
+    public void preLoadPantallaStarWars()  {
         try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/FXWelcome.fxml"));
-            welcome = loaderMenu.load();
-            welcomeController = loaderMenu.getController();
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXWelcomeController.class.getName()).log(Level.SEVERE, null, ex);
+            if (apiStarWars == null) {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/apiStarWars.fxml"));
+                apiStarWars = fxmlLoader.load();
+                BasePantallaController pantallaController = fxmlLoader.getController();
+                pantallaController.setPrincipalController(this);
+                pantallaController.setCenter(apiStarWars);
+            }
+        }catch (Exception e){
+            Logger.getLogger("ERROR").log(Level.WARNING, e.getMessage(), e);
         }
     }
 
-    public void preloadReadNewspaper() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/newspaper/FXNewspaperRead.fxml"));
-            readNewspaper = loaderMenu.load();
-            readNewsPaperController = loaderMenu.getController();
-            readNewsPaperController.setMainController(this);
+     */
+    private void cambioPantalla(Pane pantallaNueva) {
+        rootPantallaPrincipal.setCenter(pantallaNueva);
+    }
 
-        } catch (IOException ex) {
-            Logger.getLogger(FXNewspaperReadController.class.getName()).log(Level.SEVERE, null, ex);
+    private void cargarPantalla(Pantallas pantalla) {
+        cambioPantalla(cargarPantallaPane(pantalla.getRutaPantalla()));
+    }
+
+    private Pane cargarPantallaPane(String ruta) {
+        Pane panePantalla = null;
+        try {
+
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setControllerFactory(controller -> instance.select(controller).get());
+            panePantalla = fxmlLoader.load(getClass().getResourceAsStream(ruta));
+            BasePantallaController pantallaController = fxmlLoader.getController();
+            pantallaController.setPrincipalController(this);
+            pantallaController.principalCargado();
+
+
+        } catch (IOException e) {
+            log.error(e.getMessage(),e);
+        }
+        return panePantalla;
+    }
+    /**
+     private void closeWindowEvent(WindowEvent event) {
+     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+     alert.getButtonTypes().remove(ButtonType.OK);
+     alert.getButtonTypes().add(ButtonType.CANCEL);
+     alert.getButtonTypes().add(ButtonType.YES);
+     alert.setTitle("Quit application");
+     alert.setContentText("Close without saving?");
+     alert.initOwner(primaryStage.getOwner());
+     Optional<ButtonType> res = alert.showAndWait();
+     }
+     */
+
+    @FXML
+    private void menuClick(ActionEvent actionEvent) {
+        switch (((MenuItem) actionEvent.getSource()).getId()) {
+
+            //Inicio
+            case "menuBackToLogin" -> {
+                cargarPantalla(Pantallas.LOGIN);
+                fxMenuTop.setVisible(false);
+            }
+            case "menuWelcome" -> cargarPantalla(Pantallas.WELCOME);
+
+            //Articles
+            case "menuAddArticle" -> cargarPantalla(Pantallas.ARTICLE_CREATE);
+            case "menuReadArticle" -> cargarPantalla(Pantallas.ARTICLE_READ);
+            case "menuFindByTypeArticle" -> cargarPantalla(Pantallas.ARTICLE_BY_TYPE);
+            case "menuDeleteArticle" -> cargarPantalla(Pantallas.ARTICLE_DELETE);
+            case "menuUpdateArticle" -> cargarPantalla(Pantallas.ARTICLE_UPDATE);
+
+
+            //Readers and JDBC
+            case "menuAddReader" -> cargarPantalla(Pantallas.READER_CREATE);
+            case "menuReadReader" -> cargarPantalla(Pantallas.READER_READ);
+            case "menuDeleteReader" -> cargarPantalla(Pantallas.READER_DELETE);
+            case "menuUpdateReader" -> cargarPantalla(Pantallas.READER_UPDATE);
+            case "menuFindReadersSubscribeNewspaper" -> cargarPantalla(Pantallas.READERS_SUBSCRIBE_NEWSPAPER);
+            case "menuFindReadersArticleType" -> cargarPantalla(Pantallas.READERS_OF_ARTICLE_TYPE);
+            case "menuAddReadArticle" -> cargarPantalla(Pantallas.ADD_READ_ARTICLE);
+            case "menuGetDescriptionAndNumberReadersOfEachArticle" -> cargarPantalla(Pantallas.DESCRIPTION_AND_NUMBER_READERS_OF_EACH_ARTICLE);
+            case "menuGetNameOfOldestSubscribersOfNewspaper" -> cargarPantalla(Pantallas.NAME_OF_OLDEST_SUBSCRIBERS_OF_NEWSPAPER);
+            case "menuReaderSubscribeNewspaper" -> cargarPantalla(Pantallas.READER_SUBSCRIBE_NEWSPAPER);
+            case "menuFindNewspapersSpring" -> cargarPantalla(Pantallas.FIND_NEWSPAPERS_SPRING);
+            case "menuDeleteNewspaperSpring" -> cargarPantalla(Pantallas.DELETE_NEWSPAPER_SPRING);
+            case "menuAddNewspaperSpring" -> cargarPantalla(Pantallas.ADD_NEWSPAPER_SPRING);
+            case "menuUpdateNewspaperSpring" -> cargarPantalla(Pantallas.NEWSPAPER_UPDATE_SPRING);
         }
     }
 
-    public void preloadFindArticleByType() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/article/FXArticleByType.fxml"));
-            findArticleByType = loaderMenu.load();
-            findArticleByTypeController = loaderMenu.getController();
-            findArticleByTypeController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXArticleByTypeController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadCreateArticle() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/article/FXArticleCreate.fxml"));
-            createArticle = loaderMenu.load();
-            createArticleController = loaderMenu.getController();
-            createArticleController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXArticleCreateController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadDeleteNewspaper() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/newspaper/FXNewspaperDelete.fxml"));
-            deleteNewspaper = loaderMenu.load();
-            deleteNewspaperController = loaderMenu.getController();
-            deleteNewspaperController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXNewspaperDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderSuscribeByNewspaperXML() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/xml/FXReaderSuscribeByNewspaperXML.fxml"));
-            readerSuscribeByNewspaperXML = loaderMenu.load();
-            readerSuscribeByNewspaperXMLController = loaderMenu.getController();
-            readerSuscribeByNewspaperXMLController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderSuscribeByNewspaperXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderByArticleByTypeXML() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/xml/FXReaderByArticleByTypeXML.fxml"));
-            readerByArticleByTypeXML = loaderMenu.load();
-            readerByArticleByTypeXMLController = loaderMenu.getController();
-            readerByArticleByTypeXMLController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderByArticleByTypeXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReadArticleAddToReaderXML() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/xml/FXReadArticleAddToReaderXML.fxml"));
-            readArticleAddToReaderXML = loaderMenu.load();
-            readArticleAddToReaderXMLController = loaderMenu.getController();
-            readArticleAddToReaderXMLController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReadArticleAddToReaderXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderDeleteXML() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/xml/FXReaderDeleteXML.fxml"));
-            readerDeleteXML = loaderMenu.load();
-            readerDeleteXMLController = loaderMenu.getController();
-            readerDeleteXMLController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderDeleteXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderCreate() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/reader/FXReaderCreate.fxml"));
-            readerCreate = loaderMenu.load();
-            readerCreateController = loaderMenu.getController();
-            readerCreateController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderCreateController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderRead() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/reader/FXReaderRead.fxml"));
-            readerRead = loaderMenu.load();
-            readerReadController = loaderMenu.getController();
-            readerReadController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderReadController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderDelete() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/reader/FXReaderDelete.fxml"));
-            readerDelete = loaderMenu.load();
-            readerDeleteController = loaderMenu.getController();
-            readerDeleteController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderDeleteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void preloadReaderUpdate() {
-        try {
-            FXMLLoader loaderMenu = new FXMLLoader(
-                    getClass().getResource(
-                            "/fxml/reader/FXReaderUpdate.fxml"));
-            readerUpdate = loaderMenu.load();
-            readerUpdateController = loaderMenu.getController();
-            readerUpdateController.setMainController(this);
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXReaderUpdateController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void chargeLogin() {
-        fxRoot.setCenter(login);
-        fxMenuTop.setVisible(false);
-    }
-
-    public void chargeWelcome() {
-        fxRoot.setCenter(welcome);
+    public void onLoginHecho() {
+        cargarPantalla(Pantallas.WELCOME);
         fxMenuTop.setVisible(true);
+        esconderMenu();
     }
 
-    public void chargeAddArticles() {
-        createArticleController.loadComboboxs();
-        fxRoot.setCenter(createArticle);
+    public void esconderMenu(){
+        if (!adminUser){
+            //aqui solo ve los JDBC
+            resetMenuNotVisible();
+            menuItemsJDBC.setVisible(true);
+            menuItemsOptions.setVisible(true);
+
+            resetMenuItemsNotVisible();
+            menuWelcome.setVisible(true);
+            menuBackToLogin.setVisible(true);
+            menuAddReadArticle.setVisible(true);
+            menuReaderSubscribeNewspaper.setVisible(true);
+        } else {
+            resetMenuVisible();
+            resetMenuItemsVisible();
+            menuReaderSubscribeNewspaper.setVisible(false);
+        }
     }
 
-    public void chargeReadArticles() {
+    public void resetMenuNotVisible(){
+        fxMenuTop.getMenus().forEach(menu -> menu.setVisible(false));
     }
-
-    public void chargeFindTypeArticles() {
-        fxRoot.setCenter(findArticleByType);
+    public void resetMenuVisible(){
+        fxMenuTop.getMenus().forEach(menu -> menu.setVisible(true));
     }
-
-    public void chargeDeleteArticles() {
+    public void resetMenuItemsNotVisible(){
+        fxMenuTop.getMenus().forEach(menu ->
+                menu.getItems().forEach(item ->
+                        item.setVisible(false)));
     }
-
-    public void chargeUpdateArticles() {
-    }
-
-    public void chargeAddNewspapers() {
-    }
-
-    public void chargeReadNewspapers() {
-        readNewsPaperController.loadNewspaperList();
-        fxRoot.setCenter(readNewspaper);
-    }
-
-    public void chargeFindByIdNewspapers() {
-    }
-
-    public void chargeDeleteNewspapers() {
-
-    }
-
-    public void chargeAddReaders() {
-        fxRoot.setCenter(readerCreate);
-    }
-
-    public void chargeReadReaders() {
-        fxRoot.setCenter(readerRead);
+    public void resetMenuItemsVisible(){
+        fxMenuTop.getMenus().forEach(menu ->
+                menu.getItems().forEach(item ->
+                        item.setVisible(true)));
     }
 
 
-    public void chargeFindByIdReaders() {
-    }
-
-    public void chargeDeleteReaders() {
-        fxRoot.setCenter(readerDelete);
-    }
 
 
-    public void chargeUpdateReaders(ActionEvent actionEvent) {
-        fxRoot.setCenter(readerUpdate);
-    }
-
-    public void chargeReadersSubscribeByNewspaper() {
-        fxRoot.setCenter(readerSuscribeByNewspaperXML);
-    }
-
-    public void chargeReaderByArticleByTypeXML() {
-        fxRoot.setCenter(readerByArticleByTypeXML);
-    }
-
-    public void chargeAddReadArticle() {
-        fxRoot.setCenter(readArticleAddToReaderXML);
-    }
-
-
-    public void chargeDeleteReader(ActionEvent actionEvent) {
-        fxRoot.setCenter(readerDeleteXML);
-
+    public void setStage (Stage stage){
+        primaryStage = stage;
+        //primaryStage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //txt
-        preloadWelcome();
-        preloadLogin();
-        preloadReadNewspaper();
-        preloadFindArticleByType();
-        preloadCreateArticle();
-        preloadDeleteNewspaper();
-
-        //xml
-        preloadReaderSuscribeByNewspaperXML();
-        preloadReaderByArticleByTypeXML();
-        preloadReadArticleAddToReaderXML();
-        preloadReaderDeleteXML();
-
-        //jdbc
-        preloadReaderCreate();
-        preloadReaderRead();
-        preloadReaderDelete();
-        preloadReaderUpdate();
-
-        chargeLogin();
+        fxMenuTop.setVisible(false);
+        cargarPantalla(Pantallas.LOGIN);
     }
 }

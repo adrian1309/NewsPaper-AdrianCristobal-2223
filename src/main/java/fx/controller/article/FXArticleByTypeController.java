@@ -1,6 +1,7 @@
 package fx.controller.article;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +14,7 @@ import service.files.ServiceTypeFile;
 import java.net.URL;
 import java.util.*;
 
-public class FXArticleByTypeController implements Initializable {
+public class FXArticleByTypeController extends BasePantallaController implements Initializable {
     @FXML
     public ListView<String> articleList;
     @FXML

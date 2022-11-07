@@ -2,7 +2,10 @@ package service.jdbc;
 
 import dao.jdbc.DaoReaderJDBC;
 import dao.jdbc.impl.DaoReaderJDBCImpl;
+import dao.jdbc.impl.DaoReaderJDBCPoolImpl;
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
+import model.Newspaper;
 import model.Reader;
 import service.ServiceReader;
 
@@ -16,28 +19,61 @@ public class ServiceReaderJDBC implements ServiceReader {
     }
     */
 
+    private final DaoReaderJDBC daoReaderJDBC;
+
+    @Inject
+    public ServiceReaderJDBC(DaoReaderJDBCPoolImpl daoReaderJDBC) {
+        this.daoReaderJDBC = daoReaderJDBC;
+    }
+
+
     @Override
-    public List<Reader> getAllReaders() {
-        DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
-        return daoReaderJDBC.getAllReaders();
+    public Either<Integer, List<Reader>> getAllReaders() {
+        //DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCPoolImpl();
+        return daoReaderJDBC.getAll();
     }
 
     @Override
-    public void addReader(Reader reader) {
-        DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
-        daoReaderJDBC.addReader(reader);
+    public int addReader(Reader reader) {
+        //DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
+        return daoReaderJDBC.add(reader);
     }
 
     @Override
-    public void deleteReader(Reader reader) {
-        DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
-        daoReaderJDBC.deleteReader(reader);
+    public int deleteReader(Reader reader) {
+        //DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
+        return daoReaderJDBC.delete(reader);
     }
 
     @Override
-    public void updateReader(Reader reader) {
-        DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
-        daoReaderJDBC.updateReader(reader);
+    public int updateReader(Reader reader) {
+        //DaoReaderJDBC daoReaderJDBC = new DaoReaderJDBCImpl();
+        return daoReaderJDBC.update(reader);
+    }
+
+    @Override
+    public List<Reader> getReadersSubscribeNewspaper(Newspaper newspaper) {
+        return daoReaderJDBC.getReadersSubscribeNewspaper(newspaper);
+    }
+
+    @Override
+    public List<Reader> getReadersOfArticleType(String type) {
+        return daoReaderJDBC.getReadersOfArticleType(type);
+    }
+
+    @Override
+    public void addReadArticle(int idReader, int idArticle, int rating) {
+        daoReaderJDBC.addReadArticle(idReader, idArticle, rating);
+    }
+
+    @Override
+    public String getNameOldestSubscribersOfNewspaper(Newspaper selectedItem) {
+        return daoReaderJDBC.getOlderSubscribersOfNewspaper(selectedItem);
+    }
+
+    @Override
+    public void addSubscriber(int idNewspaper, int idReader) {
+        daoReaderJDBC.addSubscriber(idNewspaper, idReader);
     }
 
 

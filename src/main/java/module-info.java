@@ -11,6 +11,17 @@ module NewsPaperAdrianCristobal{
     requires weld.api;
     requires jakarta.annotation;
     requires jakarta.el;
+    requires com.zaxxer.hikari;
+    requires io.vavr;
+    requires org.apache.logging.log4j;
+    requires org.apache.logging.log4j.core;
+    requires spring.jdbc;
+    requires spring.tx;
+    requires modelmapper;
+    requires jakarta.jakartaee.web.api;
+
+    //PSP
+
 
     opens gui;
     opens fx.controller to javafx.fxml;
@@ -21,6 +32,14 @@ module NewsPaperAdrianCristobal{
     opens fx.controller.xml;
     opens config.file;
     opens model;
+    opens config.jdbc;
+    opens common;
+    opens fx.controller.jdbc;
+    opens fx.controller.spring;
+
+    //PSP
+
+
 
 
     exports utils;
@@ -28,7 +47,6 @@ module NewsPaperAdrianCristobal{
     exports service.jdbc;
     exports fx.controller.article;
     exports dao.jdbc.connectionsJDBC;
-    exports JDBCConnection;
     exports gui;
     exports fx.controller;
     exports model;
@@ -40,5 +58,19 @@ module NewsPaperAdrianCristobal{
     exports fx.controller.xml;
     exports dao.files.impl;
     exports service.files;
+    exports config.jdbc;
+    exports fx.controller.common;
+    exports fx.controller.jdbc;
+    exports fx.controller.spring;
+    exports dao.spring.impl;
+    exports service.spring;
+    exports dao.jdbc;
+
+    //PSP
+
+
+
+//Modules jakarta.jakartaee.web.api and jakarta.cdi export package jakarta.enterprise.inject.se to module spring.jdbc
+
 
 }

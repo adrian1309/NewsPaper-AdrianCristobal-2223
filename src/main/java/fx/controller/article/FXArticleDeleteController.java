@@ -1,4 +1,6 @@
 package fx.controller.article;
 
-public class FXArticleDeleteController {
+import fx.controller.common.BasePantallaController;
+
+public class FXArticleDeleteController extends BasePantallaController {
 }

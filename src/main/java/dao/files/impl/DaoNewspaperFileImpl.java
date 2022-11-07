@@ -44,7 +44,7 @@ public class DaoNewspaperFileImpl implements DaoNewspaperIF {
         try (FileWriter writer = new FileWriter(file, true);  //the true will append the new data
              BufferedWriter bw = new BufferedWriter(writer)) {
             String content = newspaper.getId() + ";" + newspaper.getName_newspaper()
-                    + ";" + newspaper.getRealise_date() + "\n";
+                    + ";" + newspaper.getRelease_date() + "\n";
             bw.write(content);
             return true;
         } catch (IOException e) {

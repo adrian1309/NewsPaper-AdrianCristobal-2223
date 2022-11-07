@@ -1,6 +1,7 @@
 package fx.controller.newspaper;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class FXNewspaperDeleteController implements Initializable {
+public class FXNewspaperDeleteController extends BasePantallaController implements Initializable {
 
     @FXML
     public ListView<Newspaper> newspaperList;

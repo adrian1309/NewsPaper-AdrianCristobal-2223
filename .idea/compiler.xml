@@ -10,6 +10,7 @@
         <module name="NewsPaper-AdrianCristobal-2223" />
         <module name="23" />
         <module name="NewsPaper-AdrianCristobal" />
+        <module name="NewsPaper-PSP" />
       </profile>
     </annotationProcessing>
   </component>

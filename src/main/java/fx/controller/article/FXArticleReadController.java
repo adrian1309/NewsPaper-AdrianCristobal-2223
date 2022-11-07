@@ -1,4 +1,6 @@
 package fx.controller.article;
 
-public class FXArticleReadController {
+import fx.controller.common.BasePantallaController;
+
+public class FXArticleReadController extends BasePantallaController {
 }

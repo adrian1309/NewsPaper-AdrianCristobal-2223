@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fx.controller.jdbc.FXReadersSubscribeNewspaperController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <Button layoutX="13.0" layoutY="187.0" mnemonicParsing="false" onAction="#searchByNewspaper" prefHeight="25.0" prefWidth="156.0" text="Search by newspaper" />
+        <Label layoutX="177.0" layoutY="58.0" text="Reader" />
+        <Label layoutX="54.0" layoutY="111.0" text="Select newspaper" textFill="#000000b6" />
+        <ListView fx:id="readerList" layoutX="177.0" layoutY="86.0" prefHeight="288.0" prefWidth="398.0" />
+        <Label layoutX="33.0" layoutY="33.0" text="FIND READER BY NEWSPAPER" textFill="#000000c0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="newspaperBox" layoutX="14.0" layoutY="143.0" prefHeight="25.0" prefWidth="156.0" />
+    </children>
+
+</AnchorPane>

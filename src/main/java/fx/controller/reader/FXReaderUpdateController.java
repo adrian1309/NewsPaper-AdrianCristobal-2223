@@ -1,6 +1,8 @@
 package fx.controller.reader;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
+import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -9,14 +11,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Reader;
 import service.ServiceReader;
-import service.jdbc.ServiceReaderJDBC;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ResourceBundle;
 
-public class FXReaderUpdateController implements Initializable {
+public class FXReaderUpdateController extends BasePantallaController implements Initializable {
     @FXML
     private TextField tfName;
     @FXML
@@ -28,6 +28,10 @@ public class FXReaderUpdateController implements Initializable {
 
     Alert alerta;
     private FXMainController fxMainController;
+    @Inject
+    public FXReaderUpdateController(ServiceReader serviceReader){
+        this.serviceReader = serviceReader;
+    }
 
     public void setMainController(FXMainController fxMainController) {
         this.fxMainController = fxMainController;
@@ -35,7 +39,7 @@ public class FXReaderUpdateController implements Initializable {
 
     public void loadReader() {
         lvReader.getItems().clear();
-        lvReader.getItems().addAll(serviceReader.getAllReaders());
+        lvReader.getItems().addAll(serviceReader.getAllReaders().get());
     }
 
     public void readerSelected() {
@@ -80,7 +84,7 @@ public class FXReaderUpdateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        serviceReader = new ServiceReaderJDBC();
+        //serviceReader = new ServiceReaderJDBC();
         alerta = new Alert(Alert.AlertType.INFORMATION);
         loadReader();
     }

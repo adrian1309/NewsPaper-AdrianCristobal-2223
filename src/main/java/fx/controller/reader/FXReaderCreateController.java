@@ -1,12 +1,15 @@
 package fx.controller.reader;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
+import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import lombok.extern.log4j.Log4j2;
 import model.Reader;
 import service.ServiceReader;
 import service.jdbc.ServiceReaderJDBC;
@@ -15,7 +18,8 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
-public class FXReaderCreateController implements Initializable {
+@Log4j2
+public class FXReaderCreateController extends BasePantallaController implements Initializable {
     @FXML
     private TextField tfName;
     @FXML
@@ -24,9 +28,11 @@ public class FXReaderCreateController implements Initializable {
     private Alert alerta;
     private FXMainController fxMainController;
 
-    public void setMainController(FXMainController fxMainController) {
-        this.fxMainController = fxMainController;
+    @Inject
+    public FXReaderCreateController(ServiceReader serviceReader){
+        this.serviceReader = serviceReader;
     }
+
     public void addReader() {
         try {
             Reader reader = new Reader();
@@ -55,7 +61,7 @@ public class FXReaderCreateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        serviceReader = new ServiceReaderJDBC();
+        //serviceReader = new ServiceReaderJDBC();
         alerta = new Alert(Alert.AlertType.INFORMATION);
     }
 

@@ -1,4 +1,6 @@
 package fx.controller.newspaper;
 
-public class FXNewspaperUpdateController {
+import fx.controller.common.BasePantallaController;
+
+public class FXNewspaperUpdateController extends BasePantallaController {
 }

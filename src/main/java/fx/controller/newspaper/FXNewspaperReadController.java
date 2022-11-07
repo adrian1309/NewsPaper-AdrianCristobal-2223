@@ -1,6 +1,7 @@
 package fx.controller.newspaper;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class FXNewspaperReadController implements Initializable {
+public class FXNewspaperReadController extends BasePantallaController implements Initializable {
     @FXML
     public TableView<Newspaper> newspaperTable;
     @FXML

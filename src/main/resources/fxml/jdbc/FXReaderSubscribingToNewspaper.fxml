@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controller.jdbc.FXReaderSubscribingToNewspaperController">
+
+    <children>
+        <ListView fx:id="newspaperBox" layoutX="29.0" layoutY="88.0" prefHeight="280.0" prefWidth="185.0" />
+        <Button layoutX="230.0" layoutY="200.0" mnemonicParsing="false" onAction="#addSubscriber" prefHeight="27.0" prefWidth="68.0" text="Save" />
+        <Label layoutX="29.0" layoutY="67.0" text="Select a newspaper (*)" />
+        <Label layoutX="28.0" layoutY="30.0" text="ADD A NEW SUBSCRIBER" textFill="#000000bb">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+    </children>
+
+</AnchorPane>

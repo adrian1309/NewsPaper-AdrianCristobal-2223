@@ -15,7 +15,7 @@
             <columns>
                 <TableColumn fx:id="idColumnTable" prefWidth="50" text="ID" />
                 <TableColumn fx:id="nameColumnTable" prefWidth="150" text="NAME" />
-                <TableColumn fx:id="releaseDateColumnTable" prefWidth="150.0" text="RELEASE DATE" />
+                <TableColumn fx:id="releaseDateColumnTable" prefWidth="150.0" text="REALISE DATE" />
             </columns>
         </TableView>
         <Label layoutX="36.0" layoutY="41.0" prefHeight="37.0" prefWidth="168.0" text="NEWSPAPER LIST">

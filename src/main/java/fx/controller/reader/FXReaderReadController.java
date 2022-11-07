@@ -1,6 +1,8 @@
 package fx.controller.reader;
 
 import fx.controller.FXMainController;
+import fx.controller.common.BasePantallaController;
+import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -16,7 +18,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class FXReaderReadController implements Initializable {
+public class FXReaderReadController extends BasePantallaController implements Initializable {
 
     @FXML
     private TableView<Reader> readerTable;
@@ -29,6 +31,11 @@ public class FXReaderReadController implements Initializable {
 
     private ServiceReader serviceReader;
 
+    @Inject
+    public FXReaderReadController(ServiceReader serviceReader){
+        this.serviceReader = serviceReader;
+    }
+
     private FXMainController mainController;
 
     public void setMainController(FXMainController fxMainController){
@@ -37,12 +44,12 @@ public class FXReaderReadController implements Initializable {
 
     public void loadReadersList(){
         readerTable.getItems().clear();
-        readerTable.getItems().addAll(serviceReader.getAllReaders());
+        readerTable.getItems().addAll(serviceReader.getAllReaders().get());
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        serviceReader = new ServiceReaderJDBC();
+        //serviceReader = new ServiceReaderJDBC();
         loadReadersList();
         idColumnTable.setCellValueFactory(new PropertyValueFactory<Reader, Integer>("id"));
         nameColumnTable.setCellValueFactory(new PropertyValueFactory<Reader, String>("name_reader"));
