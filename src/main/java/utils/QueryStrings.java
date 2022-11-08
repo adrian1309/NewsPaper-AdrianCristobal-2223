@@ -36,4 +36,5 @@ public class QueryStrings {
     //                                                          PSP
     //Newspaper
     public static final String GET_NEWSPAPER_BY_ID = "SELECT * FROM newspaper WHERE id = ?";
+    public static final String GET_NEWSPAPER_BY_NAME = "SELECT * FROM newspaper WHERE name_newspaper = ?";
 }
