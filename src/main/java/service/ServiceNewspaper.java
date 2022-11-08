@@ -14,5 +14,5 @@ public interface ServiceNewspaper {
     void addNewspaper(Newspaper newspaper);
     void deleteNewspaper(Newspaper newspaper);
     void updateNewspaper(Newspaper newspaper);
-    Either<ApiError, Newspaper> findOne(String id);
+    Either<ApiError, Newspaper> findOne(int id);
 }

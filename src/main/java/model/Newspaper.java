@@ -7,8 +7,6 @@ import java.time.LocalDate;
 
 
 @Data
-@ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Newspaper {
@@ -17,17 +15,9 @@ public class Newspaper {
     private String name_newspaper;
     private LocalDate release_date;
 
-
-    public Newspaper (String linea){
-        String[] valor = linea.split(";");
-        this.id = Integer.parseInt(valor[0]);
-        this.name_newspaper = valor[1];
-        this.release_date = Date.valueOf(valor[2]).toLocalDate();
-
+    public Newspaper(int id, String name_newspaper) {
+        this.id = id;
+        this.name_newspaper = name_newspaper;
     }
 
-    @Override
-    public String toString() {
-        return name_newspaper;
-    }
 }

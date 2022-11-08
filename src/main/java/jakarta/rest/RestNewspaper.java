@@ -1,9 +1,5 @@
 package jakarta.rest;
 
-
-import io.vavr.control.Either;
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.errores.ApiError;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
@@ -13,9 +9,9 @@ import jakarta.ws.rs.core.Response;
 import model.Newspaper;
 import org.modelmapper.ModelMapper;
 import service.ServiceNewspaper;
-import service.jdbc.ServiceNewspaperJDBC;
+import service.impl.ServiceNewspaperSpring;
 
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Path("/newspaper")
@@ -28,25 +24,32 @@ public class RestNewspaper {
     private ModelMapper mapper;
 
     @Inject
-    public RestNewspaper(ServiceNewspaperJDBC serviceNewspaperJDBC, ModelMapper mapper) {
-        this.serviceNewspaper = serviceNewspaperJDBC;
+    public RestNewspaper(ServiceNewspaperSpring serviceNewspaperSpring, ModelMapper mapper) {
+        this.serviceNewspaper = serviceNewspaperSpring;
         this.mapper = mapper;
     }
 
 
     @GET
-    @Path("/getNewspaper")
+    @Path("/findOneNewspaper")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNewspaper(@QueryParam("id") String id,
                                @Context HttpServletRequest request) {
 
         AtomicReference<Response> r = new AtomicReference();
-        serviceNewspaper.findOne(id)
+        serviceNewspaper.findOne(Integer.parseInt(id))
                 .peek(newspaper -> r.set(Response.ok(newspaper).build()))
                 .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
                         .entity(apiError)
                         .build()));
         return r.get();
+    }
+
+    @GET
+    @Path("/findAllNewspaper")
+    public List<Newspaper> getAllNewspaper() {
+        List<Newspaper> newspaperList = serviceNewspaper.findNewspapers().get();
+        return newspaperList;
     }
 /*
     @GET
