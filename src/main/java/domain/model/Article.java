@@ -1,4 +1,4 @@
-package model;
+package domain.model;
 
 import jakarta.enterprise.inject.spi.configurator.BeanConfigurator;
 import lombok.AllArgsConstructor;

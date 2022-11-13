@@ -1,6 +1,6 @@
-package service;
+package domain.service;
 
-import model.Subscribe;
+import domain.model.Subscribe;
 
 import java.util.List;
 

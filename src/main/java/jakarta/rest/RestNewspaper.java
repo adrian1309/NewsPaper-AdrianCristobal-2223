@@ -6,12 +6,11 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import model.Newspaper;
+import domain.model.Newspaper;
 import org.modelmapper.ModelMapper;
-import service.ServiceNewspaper;
-import service.impl.ServiceNewspaperSpring;
+import domain.service.ServiceNewspaper;
+import domain.service.impl.ServiceNewspaperSpring;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Path("/newspaper")
@@ -31,26 +30,29 @@ public class RestNewspaper {
 
 
     @GET
-    @Path("/findOneNewspaper")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getNewspaper(@QueryParam("id") String id,
-                               @Context HttpServletRequest request) {
-
+    @Path("/findAll")
+    public Response getAllNewspaper() {
         AtomicReference<Response> r = new AtomicReference();
-        serviceNewspaper.findOne(Integer.parseInt(id))
-                .peek(newspaper -> r.set(Response.ok(newspaper).build()))
-                .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
+        serviceNewspaper.findAll()
+                .peek(list -> r.set(Response.ok(list).build()))
+                .peekLeft(apiError -> r.set(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                         .entity(apiError)
                         .build()));
         return r.get();
     }
 
+
     @GET
-    @Path("/findAllNewspaper")
-    public List<Newspaper> getAllNewspaper() {
-        List<Newspaper> newspaperList = serviceNewspaper.findNewspapers().get();
-        return newspaperList;
+    @Path("/findOne")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Newspaper getNewspaper(@QueryParam("id") String id,
+                               @Context HttpServletRequest request) {
+
+        Newspaper newspaper = serviceNewspaper.findOne(Integer.parseInt(id));
+
+        return newspaper;
     }
+
 /*
     @GET
     @RolesAllowed("ADMIN")

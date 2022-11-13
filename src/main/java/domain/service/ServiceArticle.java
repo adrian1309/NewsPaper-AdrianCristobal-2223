@@ -1,6 +1,6 @@
-package service;
+package domain.service;
 
-import model.Article;
+import domain.model.Article;
 
 import java.util.List;
 

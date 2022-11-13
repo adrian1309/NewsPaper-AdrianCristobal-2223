@@ -1,8 +1,8 @@
-package service;
+package domain.service;
 
+import domain.model.Reader;
 import io.vavr.control.Either;
-import model.Newspaper;
-import model.Reader;
+import domain.model.Newspaper;
 
 import java.util.List;
 
