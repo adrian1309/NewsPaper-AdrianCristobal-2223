@@ -1,14 +1,10 @@
 package jakarta.rest;
 
-import jakarta.enterprise.inject.New;
 import jakarta.inject.Inject;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import domain.model.Newspaper;
-import org.modelmapper.ModelMapper;
 import domain.service.ServiceNewspaper;
 import domain.service.impl.ServiceNewspaperSpring;
 import utils.PathsStrings;
@@ -21,21 +17,19 @@ import java.util.concurrent.atomic.AtomicReference;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestNewspaper {
 
-    private ServiceNewspaper serviceNewspaper;
-
-    private ModelMapper mapper;
+    private final ServiceNewspaper serviceNewspaper;
 
     @Inject
-    public RestNewspaper(ServiceNewspaperSpring serviceNewspaperSpring, ModelMapper mapper) {
+    public RestNewspaper(ServiceNewspaperSpring serviceNewspaperSpring) {
         this.serviceNewspaper = serviceNewspaperSpring;
-        this.mapper = mapper;
+
     }
 
 
     @GET
     @Path(PathsStrings.PATH_NEWSPAPER_FIND_ALL)
     public Response getAll() {
-        AtomicReference<Response> r = new AtomicReference();
+        AtomicReference<Response> r = new AtomicReference<>();
         serviceNewspaper.findAll()
                 .peek(list -> r.set(Response.ok(list).build()))
                 .peekLeft(apiError -> r.set(Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -48,12 +42,9 @@ public class RestNewspaper {
     @GET
     @Path(PathsStrings.PATH_NEWSPAPER_FIND_ONE)
     @Produces(MediaType.APPLICATION_JSON)
-    public Newspaper getOne(@QueryParam(QueryParamsStrings.ID) String id,
-                               @Context HttpServletRequest request) {
+    public Newspaper getOne(@QueryParam(QueryParamsStrings.ID) String id) {
 
-        Newspaper newspaper = serviceNewspaper.findOne(Integer.parseInt(id));
-
-        return newspaper;
+        return serviceNewspaper.findOne(Integer.parseInt(id));
     }
 
     @POST
