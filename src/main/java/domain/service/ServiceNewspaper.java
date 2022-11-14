@@ -14,4 +14,6 @@ public interface ServiceNewspaper {
     void updateNewspaper(Newspaper newspaper);
     Either<ApiError, List<Newspaper>> findAll();
     Newspaper findOne(int id);
+    boolean delete(int id);
+    Newspaper add(Newspaper newspaper);
 }
