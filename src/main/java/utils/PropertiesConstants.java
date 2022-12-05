@@ -1,6 +1,6 @@
 package utils;
 
-public class PropertiesStrings {
+public class PropertiesConstants {
 
     public static final String PATH_YAML = "propertiesJDBC/mysql-properties.yaml";
     public static final String RUTA = "ruta";

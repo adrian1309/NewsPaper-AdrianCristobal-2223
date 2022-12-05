@@ -1,12 +1,17 @@
 package utils;
 
-public class QueryStrings {
+public class QueryConstants {
     //READER
     public static final String GET_ALL_READERS = "SELECT * FROM reader";
+    public static final String GET_READER_BY_ID = "SELECT * FROM reader WHERE id = ?";
     public static final String ADD_READER = "INSERT INTO reader (name_reader, birth_reader) VALUES (?,?)";
     public static final String DELETE_READER = "DELETE FROM reader WHERE id = ?";
     public static final String UPDATE_READER = "UPDATE reader SET name_reader = ?, birth_reader = ? WHERE id = ?";
     public static final String GET_READERS_BY_NEWSPAPER = "SELECT * FROM reader WHERE id IN (SELECT id_reader FROM subscribe WHERE id_newspaper = ?)";
+    public static final String GET_NAME_OF_100_OLDEST_SUBSCRIPTORS_OF_A_NEWSPAPER = """
+            select name_reader from reader, subscribe, newspaper
+            where reader.id = subscribe.id_reader and subscribe.id_newspaper = newspaper.id
+            and newspaper.name_newspaper = ? order by subscribe.start_date limit 100""";
 
     //SUBSCRIBE
     public static final String GET_ALL_SUBSCRIBES = "SELECT * FROM subscribe";
@@ -15,10 +20,10 @@ public class QueryStrings {
 
     //NEWSPAPER
     public static final String GET_ALL_NEWSPAPERS = "SELECT * FROM newspaper";
-    public static final String GET_NAME_OF_100_OLDEST_SUBSCRIPTORS_OF_A_NEWSPAPER = "select description, count(id_reader) as number_of_readers from article, readarticle, type where article.id = readarticle.id_article and article.id_type = type.id and article.id = ? group by description";
     public static final String ADD_NEWSPAPER = "INSERT INTO newspaper (name_newspaper, release_date) VALUES (:name_newspaper,:release_date)";
     public static final String DELETE_NEWSPAPER = "DELETE FROM newspaper WHERE id = ?";
     public static final String UPDATE_NEWSPAPER = "UPDATE newspaper SET name_newspaper = ?, release_date = ? WHERE id = ?";
+
 
     //ARTICLE
     public static final String GET_ALL_ARTICLES = "SELECT * FROM article";
@@ -36,5 +41,11 @@ public class QueryStrings {
     //                                                          PSP
     //Newspaper
     public static final String GET_NEWSPAPER_BY_ID = "SELECT * FROM newspaper WHERE id = ?";
-    public static final String GET_NEWSPAPER_BY_NAME = "SELECT * FROM newspaper WHERE name_newspaper = ?";
+    public static final String GET_NEWSPAPER_NAME_DATE_LESS_THAN_DATE = "SELECT name_newspaper FROM newspaper WHERE release_date < ?";
+
+
+    //LOGIN
+
+    public static final String GET_ALL_USERS = "SELECT * FROM login";
+    public static final String GET_LOGIN = "SELECT * FROM login WHERE username = ? AND password = ?";
 }

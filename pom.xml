@@ -58,13 +58,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
-        <!-- JakartaMail  -->
-        <dependency>
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <version>2.1.0</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Yaml para las properties-->
         <dependency>
             <groupId>org.yaml</groupId>
@@ -77,7 +70,14 @@
             <artifactId>log4j-core</artifactId>
             <version>2.19.0</version>
         </dependency>
+        <!-- Thymmeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>3.1.0.M1</version>
+        </dependency>
     </dependencies>
+
 
 
 </project>

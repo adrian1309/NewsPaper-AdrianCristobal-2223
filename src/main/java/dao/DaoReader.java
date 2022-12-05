@@ -1,18 +1,16 @@
-package domain.service;
+package dao;
 
-import com.google.protobuf.Api;
 import domain.model.Reader;
 import io.vavr.control.Either;
-import domain.model.Newspaper;
 import jakarta.errores.ApiError;
 
 import java.util.List;
 
-public interface ServiceReader {
+public interface DaoReader {
 
     Either<ApiError, List<Reader>> findAll();
     Reader findOne(int id);
-    Reader add(Reader reader);
+    Reader save(Reader reader);
     boolean delete(int id);
     Reader update(Reader reader);
 }
